@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Libraries\XMLHelper;
 use App\Http\Services\WeChat\Entity\Account;
 use App\Http\Services\WeChat\Response\Text;
+use Illuminate\Contracts\Logging\Log;
 use Illuminate\Http\Request;
 
 class WeChatDockingController extends Controller
@@ -50,6 +51,7 @@ class WeChatDockingController extends Controller
     public function responseMsg()
     {
         $postStr        = file_get_contents("php://input");
+        Log::info($postStr);
         $weChatPostInfo = $this->handleWeChatPostStr($postStr);
         $openId         = $weChatPostInfo['FromUserName'];
         $originalId     = $weChatPostInfo['ToUserName'];
