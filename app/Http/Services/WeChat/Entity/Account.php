@@ -38,7 +38,7 @@ class Account
                 'appId'          => 'wxcb6a5e0cf35139ba',
                 'appSecret'      => 'd3adcd2d988e3cd8a6ed08e627230697',
                 'originalId'     => 'gh_ed6a859a29c6',
-                'token'          => 'HelloWorld!',
+                'token'          => 'HelloWorld',
                 'encodingAesKey' => ''
             ]
         ];
