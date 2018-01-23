@@ -19,3 +19,5 @@ Route::get('/project', 'ProjectController@index');
 Route::get('/project/create', 'ProjectController@create');
 Route::get('/project/update', 'ProjectController@update');
 Route::get('/project/delete', 'ProjectController@delete');
+
+Route::get('/wechat', 'WeChatDockingController@index');
