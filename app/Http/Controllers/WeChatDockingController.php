@@ -59,7 +59,7 @@ class WeChatDockingController extends Controller
 
         $text = new Text($account);
         $response = $text->to($openId)->content('hello world')->response();
-        response($response);
+        return response($response);
     }
 
     protected function handleWeChatPostStr($postStr)
