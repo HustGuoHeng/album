@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class WeChatDockingController extends Controller
 {
-    public $token = "HelloWorld!";
+    public $token = "HelloWorld";
 
     public function index(Request $request)
     {
