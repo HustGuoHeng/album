@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Libraries\XMLHelper;
 use App\Http\Services\WeChat\Entity\Account;
+use App\Http\Services\WeChat\Response\Text;
 use Illuminate\Http\Request;
 
 class WeChatDockingController extends Controller
@@ -54,6 +55,9 @@ class WeChatDockingController extends Controller
         $originalId     = $weChatPostInfo['ToUserName'];
 
         $account        = new Account($originalId);
+
+        $text = new Text($account);
+        $text->to($openId)->content('hello world')->response();
     }
 
     protected function handleWeChatPostStr($postStr)
