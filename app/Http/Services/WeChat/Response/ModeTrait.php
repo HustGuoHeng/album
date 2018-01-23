@@ -48,7 +48,7 @@ trait ModeTrait
      */
     public function isSafeMode()
     {
-        if ($_GET['encrypt_type'] && $_GET['encrypt_type'] == 'aes') {
+        if (isset($_GET['encrypt_type']) && $_GET['encrypt_type'] == 'aes') {
             return true;
         }
         return false;

@@ -57,7 +57,7 @@ class WeChatDockingController extends Controller
         $account        = new Account($originalId);
 
         $text = new Text($account);
-        $text->to($openId)->content('hello world')->response();
+        echo $text->to($openId)->content('hello world')->response();
     }
 
     protected function handleWeChatPostStr($postStr)
