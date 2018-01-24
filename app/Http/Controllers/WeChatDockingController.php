@@ -52,9 +52,7 @@ class WeChatDockingController extends Controller
         $originalId = Input::getInputOriginalId();
         $openId     = Input::getInputOpenId();
 
-        $account = new Account($originalId);
-
-        $text = new Text($account);
+        $text = new Text(new Account($originalId));
         echo $text->to($openId)->content('hello world')->response();
         exit();
     }
