@@ -58,7 +58,7 @@ class WeChatDockingController extends Controller
         $account = new Account(XMLHelper::SimpleXMLObjectToString($originalId));
 
         $text = new Text($account);
-        echo $text->to($openId)->content('hello world')->response();
+        echo $text->to(XMLHelper::SimpleXMLObjectToString($openId))->content('hello world')->response();
         exit();
     }
 
