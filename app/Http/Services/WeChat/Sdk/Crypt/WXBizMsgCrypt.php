@@ -98,7 +98,7 @@ class WXBizMsgCrypt
         $pc = new Prpcrypt($this->encodingAesKey);
 
         //提取密文
-        $xmlparse = new XMLParse();
+        $xmlparse = new \App\Http\Services\WeChat\Sdk\Crypt\XMLParse();
         $array = $xmlparse->extract($postData);
         $ret = $array[0];
 
