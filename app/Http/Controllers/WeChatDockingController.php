@@ -3,11 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Services\WeChat\Libraries\Input;
-use App\Http\Services\WeChat\Libraries\XMLHelper;
 use App\Http\Services\WeChat\Entity\Account;
 use App\Http\Services\WeChat\Response\Text;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 
 class WeChatDockingController extends Controller
 {
