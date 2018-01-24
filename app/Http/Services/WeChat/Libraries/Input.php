@@ -88,7 +88,7 @@ class Input
         return simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
     }
 
-    protected function handleInputInfo($postStr)
+    protected static function handleInputInfo($postStr)
     {
         $result               = array();
         $postObj              = self::getObjFromPostString($postStr);
