@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Libraries;
+namespace App\Http\Services\WeChat\Libraries;
 
 
 use Illuminate\Support\Facades\Log;

@@ -2,6 +2,7 @@
 namespace App\Http\Services\WeChat\Response;
 
 use App\Http\Services\WeChat\Entity\Account;
+use App\Http\Services\WeChat\Libraries\Common;
 use App\Http\Services\WeChat\Sdk\WXBizMsgCrypt;
 use Illuminate\Support\Facades\Log;
 
@@ -26,7 +27,7 @@ trait ModeTrait
     public function response()
     {
         $replyMsg = $this->reply();
-        if ($this->isSafeMode()) {
+        if (Common::isSafeMode()) {
             $crypt          = new WXBizMsgCrypt(
                 $this->account->getToken(),
                 $this->account->getEncodingAesKey(),
@@ -42,15 +43,5 @@ trait ModeTrait
         return $replyMsg;
     }
 
-    /**
-     * 判断是否是安全模式
-     * @return bool
-     */
-    public function isSafeMode()
-    {
-        if (isset($_GET['encrypt_type']) && $_GET['encrypt_type'] == 'aes') {
-            return true;
-        }
-        return false;
-    }
+
 }

@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Libraries\XMLHelper;
+use App\Http\Services\WeChat\Libraries\Input;
+use App\Http\Services\WeChat\Libraries\XMLHelper;
 use App\Http\Services\WeChat\Entity\Account;
 use App\Http\Services\WeChat\Response\Text;
 use Illuminate\Http\Request;
@@ -50,8 +51,8 @@ class WeChatDockingController extends Controller
 
     public function responseMsg()
     {
-        $postStr        = file_get_contents("php://input");
-        $weChatPostInfo = $this->handleWeChatPostStr($postStr);
+        $input          = new Input();
+        $weChatPostInfo = $input->handleInputInfo(Input::getInput());
         $openId         = $weChatPostInfo['FromUserName'];
         $originalId     = $weChatPostInfo['ToUserName'];
 
@@ -60,34 +61,6 @@ class WeChatDockingController extends Controller
         $text = new Text($account);
         echo $text->to(XMLHelper::SimpleXMLObjectToString($openId))->content('hello world')->response();
         exit();
-    }
-
-    protected function handleWeChatPostStr($postStr)
-    {
-        $result                 = array();
-        $postObj                = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
-        $result['MsgType']      = $postObj->MsgType;
-        $result['FromUserName'] = $postObj->FromUserName;
-        $result['ToUserName']   = $postObj->ToUserName;
-        //文本消息
-        if ($result['MsgType'] == 'text') {
-            $result['Content'] = trim($postObj->Content);
-        } else {
-            $result['Content'] = '';
-        }
-        //事件
-        if ($result['MsgType'] == 'event') {
-            $result['Event'] = $postObj->Event;
-        } else {
-            $result['Event'] = '';
-        }
-        //增加CLICK事件触发
-        if ($result['Event'] == 'CLICK') {
-            $result['EventKey'] = $postObj->EventKey;
-        } else {
-            $result['EventKey'] = '';
-        }
-        return $result;
     }
 
 
