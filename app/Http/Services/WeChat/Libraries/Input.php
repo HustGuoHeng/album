@@ -90,24 +90,8 @@ class Input
 
     protected static function handleInputInfo($postStr)
     {
-        $result               = array();
-        $postObj              = self::getObjFromPostString($postStr);
-        $result['ToUserName'] = XMLHelper::SimpleXMLObjectToString($postObj->ToUserName);
-
-        $account = new Account($result['ToUserName']);
-        if (self::isSafeMode()) {
-            $crypt     = new WXBizMsgCrypt($account->getToken(), $account->getEncodingAesKey(), $account->getAppId());
-            $msg       = '';
-            $errorCode = $crypt->decryptMsg(self::getMsgSignature(), self::getTimeStamp(), self::getNonce(), $postStr, $msg);
-            if ($errorCode == 0) {
-                $postStr = $msg;
-                $postObj = self::getObjFromPostString($postStr);
-            } else {
-                Log::info('加密信息解密错误');
-                die();
-            }
-        }
-
+        $result                 = array();
+        $postObj                = self::getPostObj($postStr);
         $result['MsgType']      = $postObj->MsgType;
         $result['FromUserName'] = XMLHelper::SimpleXMLObjectToString($postObj->FromUserName);
         //文本消息
@@ -131,4 +115,24 @@ class Input
         return $result;
     }
 
+    protected static function getPostObj($postStr)
+    {
+        $postObj              = self::getObjFromPostString($postStr);
+        $result['ToUserName'] = XMLHelper::SimpleXMLObjectToString($postObj->ToUserName);
+
+        $account = new Account($result['ToUserName']);
+        if (self::isSafeMode()) {
+            $crypt     = new WXBizMsgCrypt($account->getToken(), $account->getEncodingAesKey(), $account->getAppId());
+            $msg       = '';
+            $errorCode = $crypt->decryptMsg(self::getMsgSignature(), self::getTimeStamp(), self::getNonce(), $postStr, $msg);
+            if ($errorCode == 0) {
+                $postStr = $msg;
+                $postObj = self::getObjFromPostString($postStr);
+            } else {
+                Log::info('加密信息解密错误');
+                die();
+            }
+        }
+        return $postObj;
+    }
 }
