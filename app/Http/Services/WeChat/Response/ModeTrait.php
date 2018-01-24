@@ -2,7 +2,7 @@
 namespace App\Http\Services\WeChat\Response;
 
 use App\Http\Services\WeChat\Entity\Account;
-use App\Http\Services\WeChat\Libraries\Common;
+use App\Http\Services\WeChat\Libraries\Input;
 use App\Http\Services\WeChat\Sdk\WXBizMsgCrypt;
 use Illuminate\Support\Facades\Log;
 
@@ -27,7 +27,7 @@ trait ModeTrait
     public function response()
     {
         $replyMsg = $this->reply();
-        if (Common::isSafeMode()) {
+        if (Input::isSafeMode()) {
             $crypt          = new WXBizMsgCrypt(
                 $this->account->getToken(),
                 $this->account->getEncodingAesKey(),
