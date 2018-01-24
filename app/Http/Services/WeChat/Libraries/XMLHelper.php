@@ -14,7 +14,6 @@ class XMLHelper
     {
         if ('object' == gettype($data)) {
             $data = @json_decode(@json_encode($data), 1);
-            Log::info($data);
             $data = $data[0];
         }
         return $data;

@@ -25,7 +25,6 @@ class Input
     public static function getInputOriginalId()
     {
         $info = self::getInputInfo();
-        Log::info($info);
         return isset($info['ToUserName']) ? $info['ToUserName'] : '';
     }
 
