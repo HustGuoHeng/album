@@ -51,6 +51,7 @@ class WeChatDockingController extends Controller
     public function responseMsg()
     {
         $postStr        = file_get_contents("php://input");
+        Log::info($postStr);
         $weChatPostInfo = $this->handleWeChatPostStr($postStr);
         $openId         = $weChatPostInfo['FromUserName'];
         $originalId     = $weChatPostInfo['ToUserName'];
