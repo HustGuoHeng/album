@@ -67,8 +67,8 @@ class WeChatDockingController extends Controller
         $result                 = array();
         $postObj                = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
         $result['MsgType']      = $postObj->MsgType;
-        $result['FromUserName'] = $postObj->FromUserName;
-        $result['ToUserName']   = $postObj->ToUserName;
+        $result['FromUserName'] = XMLHelper::SimpleXMLObjectToString($postObj->FromUserName);
+        $result['ToUserName']   = XMLHelper::SimpleXMLObjectToString($postObj->ToUserName);
         //文本消息
         if ($result['MsgType'] == 'text') {
             $result['Content'] = trim($postObj->Content);
