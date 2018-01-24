@@ -1,7 +1,8 @@
 <?php
 namespace App\Http\Libraries;
 
-use Illuminate\Contracts\Logging\Log;
+
+use Illuminate\Support\Facades\Log;
 
 class XMLHelper
 {
