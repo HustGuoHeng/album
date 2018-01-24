@@ -33,7 +33,7 @@ trait ModeTrait
                 $this->account->getEncodingAesKey(),
                 $this->account->getAppId());
             $encryptMsg     = '';
-            $encryptErrCode = $crypt->encryptMsg($replyMsg, $_GET['timestamp'], $_GET['nonce'], $encryptMsg);
+            $encryptErrCode = $crypt->encryptMsg($replyMsg, Input::getTimeStamp(), Input::getNonce(), $encryptMsg);
             if ($encryptErrCode == 0) {
                 $replyMsg = $encryptMsg;
             } else {

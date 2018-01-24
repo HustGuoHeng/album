@@ -51,15 +51,13 @@ class WeChatDockingController extends Controller
 
     public function responseMsg()
     {
-        $input          = new Input();
-        $weChatPostInfo = $input->handleInputInfo(Input::getInput());
-        $openId         = $weChatPostInfo['FromUserName'];
-        $originalId     = $weChatPostInfo['ToUserName'];
+        $originalId = Input::getInputOriginalId();
+        $openId     = Input::getInputOpenId();
 
-        $account = new Account(XMLHelper::SimpleXMLObjectToString($originalId));
+        $account = new Account($originalId);
 
         $text = new Text($account);
-        echo $text->to(XMLHelper::SimpleXMLObjectToString($openId))->content('hello world')->response();
+        echo $text->to($openId)->content('hello world')->response();
         exit();
     }
 

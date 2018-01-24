@@ -8,9 +8,31 @@ use Illuminate\Support\Facades\Log;
 class Input
 {
     /**
-     * @var Account
+     * @var array
      */
-    protected static $account;
+    protected static $inputInfo;
+
+
+    public static function getInputInfo()
+    {
+        if (!self::$inputInfo) {
+            $postStr         = self::getPostString();
+            self::$inputInfo = self::handleInputInfo($postStr);
+        }
+        return self::$inputInfo;
+    }
+
+    public static function getInputOriginalId()
+    {
+        $info = self::getInputInfo();
+        return isset($info['ToUserName']) ? $info['ToUserName'] : '';
+    }
+
+    public static function getInputOpenId()
+    {
+        $info = self::getInputInfo();
+        return isset($info['FromUserName']) ? $info['FromUserName'] : '';
+    }
 
 
     /**
@@ -19,36 +41,67 @@ class Input
      */
     public static function isSafeMode()
     {
-        if (isset($_GET['encrypt_type']) && $_GET['encrypt_type'] == 'aes') {
+        if (self::getEncryptType() !== null) {
             return true;
         }
         return false;
     }
 
     /**
+     * 获取get中的encrypt_type
+     * @return null
+     */
+    public static function getEncryptType()
+    {
+        if (isset($_GET['encrypt_type'])) {
+            return $_GET['encrypt_type'];
+        }
+        return null;
+    }
+
+    public static function getTimeStamp()
+    {
+        return $_GET['timestamp'];
+    }
+
+    public static function getNonce()
+    {
+        return $_GET['nonce'];
+    }
+
+    public static function getMsgSignature()
+    {
+        return $_GET['msg_signature'];
+    }
+
+    /**
      * @return
      */
-    public static function getInput()
+    protected static function getPostString()
     {
         return file_get_contents("php://input");
     }
 
 
-    public function handleInputInfo($postStr)
+    protected static function getObjFromPostString($postStr)
+    {
+        return simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
+    }
+
+    protected function handleInputInfo($postStr)
     {
         $result               = array();
-        $postObj              = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
+        $postObj              = self::getObjFromPostString($postStr);
         $result['ToUserName'] = XMLHelper::SimpleXMLObjectToString($postObj->ToUserName);
 
-        self::setAccount($result['ToUserName']);
-
+        $account = new Account($result['ToUserName']);
         if (self::isSafeMode()) {
-            $crypt = new WXBizMsgCrypt(self::$account->getToken(), self::$account->getEncodingAesKey(), self::$account->getAppId());
-            $msg   = '';
-            $errorCode = $crypt->decryptMsg($_GET['msg_signature'], $_GET['timestamp'], $_GET['nonce'], $postStr, $msg);
+            $crypt     = new WXBizMsgCrypt($account->getToken(), $account->getEncodingAesKey(), $account->getAppId());
+            $msg       = '';
+            $errorCode = $crypt->decryptMsg(self::getMsgSignature(), self::getTimeStamp(), self::getNonce(), $postStr, $msg);
             if ($errorCode == 0) {
                 $postStr = $msg;
-                $postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
+                $postObj = self::getObjFromPostString($postStr);
             } else {
                 Log::info('加密信息解密错误');
                 die();
@@ -78,15 +131,4 @@ class Input
         return $result;
     }
 
-    public static function setAccount($originalId)
-    {
-        if (!self::$account) {
-            self::$account = new Account($originalId);
-        }
-    }
-
-    public static function getAccount()
-    {
-        return self::$account;
-    }
 }
