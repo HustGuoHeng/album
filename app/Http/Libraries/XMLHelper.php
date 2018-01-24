@@ -1,6 +1,8 @@
 <?php
 namespace App\Http\Libraries;
 
+use Illuminate\Contracts\Logging\Log;
+
 class XMLHelper
 {
     /**
@@ -11,6 +13,7 @@ class XMLHelper
     {
         if ('object' == gettype($data)) {
             $data = @json_decode(@json_encode($data), 1);
+            Log::info(var_dump($data));
             $data = $data[0];
         }
         return $data;
