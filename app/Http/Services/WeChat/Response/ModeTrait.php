@@ -3,7 +3,7 @@ namespace App\Http\Services\WeChat\Response;
 
 use App\Http\Services\WeChat\Entity\Account;
 use App\Http\Services\WeChat\Libraries\Input;
-use App\Http\Services\WeChat\Sdk\WXBizMsgCrypt;
+use App\Http\Services\WeChat\Sdk\Crypt\WXBizMsgCrypt;
 use Illuminate\Support\Facades\Log;
 
 trait ModeTrait

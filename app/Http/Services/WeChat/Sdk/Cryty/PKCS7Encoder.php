@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Services\WeChat\Sdk;
+namespace App\Http\Services\WeChat\Sdk\Crypt;
 
 /**
  * PKCS7Encoder class
