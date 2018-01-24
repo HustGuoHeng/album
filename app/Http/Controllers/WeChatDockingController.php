@@ -53,9 +53,9 @@ class WeChatDockingController extends Controller
         $postStr        = file_get_contents("php://input");
         $weChatPostInfo = $this->handleWeChatPostStr($postStr);
         $openId         = $weChatPostInfo['FromUserName'];
-        $originalId     = XMLHelper::SimpleXMLObjectToString($weChatPostInfo['ToUserName']);
+        $originalId     = $weChatPostInfo['ToUserName'];
 
-        $account        = new Account($originalId);
+        $account        = new Account(XMLHelper::SimpleXMLObjectToString($originalId));
 
         $text = new Text($account);
         echo $text->to($openId)->content('hello world')->response();
