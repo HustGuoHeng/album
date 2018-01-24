@@ -52,10 +52,10 @@ class WeChatDockingController extends Controller
     {
         echo 'a';
         $postStr        = file_get_contents("php://input");
-        $postStr        = '<xml>
-    <ToUserName><![CDATA[gh_ed6a859a29c6]]></ToUserName>
-    <Encrypt><![CDATA[jX6rnwkHfKIouIAQFbvw67nuNLOlc1X9P1pqyMomCfs77wTUZPSaLMQJAiuVMpE/2tGNK2mKF1GiOOcyKpw/9YyTr+56gQIYXbrSJ0PphyAF1cStlH+kquhTUunZNjHoi5sNt40h2zA0ptVQf/Il5DB0ddtGDsnLjFcajL44Zl1o/87IlHe7savjKfadl06u053YW65t3JwWcMRbXlJjVtrAaisYNQJZ77t+925BFNgIXQ24Ygh1tS2dE560Fkq5OoxBk7cds/LicDu03Qx0a3F8dqvXrpFNO27fl1vFNeCE7XneqRYi7qbidxfcW3JVxWulF7LHK3V9SAlzfjOaFRXfrUKHftCyYoUMArj9bDNYrDZHzhgrLSa/S1At2JarvwlRluSfuL4Jx288HPSnaMCpWUtYUQ3gU5zLRaJZrqA=]]></Encrypt>
-</xml>';
+//        $postStr        = '<xml>
+//    <ToUserName><![CDATA[gh_ed6a859a29c6]]></ToUserName>
+//    <Encrypt><![CDATA[jX6rnwkHfKIouIAQFbvw67nuNLOlc1X9P1pqyMomCfs77wTUZPSaLMQJAiuVMpE/2tGNK2mKF1GiOOcyKpw/9YyTr+56gQIYXbrSJ0PphyAF1cStlH+kquhTUunZNjHoi5sNt40h2zA0ptVQf/Il5DB0ddtGDsnLjFcajL44Zl1o/87IlHe7savjKfadl06u053YW65t3JwWcMRbXlJjVtrAaisYNQJZ77t+925BFNgIXQ24Ygh1tS2dE560Fkq5OoxBk7cds/LicDu03Qx0a3F8dqvXrpFNO27fl1vFNeCE7XneqRYi7qbidxfcW3JVxWulF7LHK3V9SAlzfjOaFRXfrUKHftCyYoUMArj9bDNYrDZHzhgrLSa/S1At2JarvwlRluSfuL4Jx288HPSnaMCpWUtYUQ3gU5zLRaJZrqA=]]></Encrypt>
+//</xml>';
         $weChatPostInfo = $this->handleWeChatPostStr($postStr);
         $openId         = $weChatPostInfo['FromUserName'];
         $originalId     = $weChatPostInfo['ToUserName'];
