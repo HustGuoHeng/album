@@ -21,7 +21,7 @@ class Account
     public function init($originalId)
     {
         $this->originalId    = $originalId;
-        $this->signalAccount = isset(static::$accounts[$originalId]) ? static::$accounts[$originalId] : [];
+        $this->signalAccount = self::$accounts[$originalId] ? self::$accounts[$originalId] : [];
         if (empty($this->signalAccount)) {
             Log::info('未能获取' . $originalId . '公众号信息！');
         }
