@@ -21,3 +21,4 @@ Route::get('/project/update', 'ProjectController@update');
 Route::get('/project/delete', 'ProjectController@delete');
 
 Route::post('/wechat', 'WeChatDockingController@index');
+Route::get('/wechatAuth', 'WeChatAuthController@index');
