@@ -40,6 +40,11 @@ class Account
                 'originalId'     => 'gh_ed6a859a29c6',
                 'token'          => 'HelloWorld',
                 'encodingAesKey' => '8vbJ6stgBT4dYB6YjbvfMXCe2qrSOMt48cLKnpsg5iR'
+            ],
+            'gh_210049cac7b7' => [
+                'appId'      => 'wx9ab7c2957c9596f0',
+                'appSecret'  => '0fc5d93883310be593c79b9274b4d158',
+                'originalId' => 'gh_210049cac7b7'
             ]
         ];
         return true;
