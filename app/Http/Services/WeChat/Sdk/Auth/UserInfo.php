@@ -26,7 +26,7 @@ class UserInfo
         $curl = new Curl();
         $curl->get($url);
         $response = $curl->response;
-        $response = json_decode($response);
+        $response = json_decode($response, true);
         return $response;
     }
 
@@ -37,7 +37,7 @@ class UserInfo
         $curl = new Curl();
         $curl->get($url);
         $response = $curl->response;
-        $response = json_decode($response);
+        $response = json_decode($response, true);
         return $response;
     }
 
