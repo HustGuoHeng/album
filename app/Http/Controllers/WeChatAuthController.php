@@ -28,11 +28,10 @@ class WeChatAuthController extends Controller
         $openId = $simpleInfo['openid'];
 
         //判断用户是否存在
-        $userExists = WeChatUserInfoModel::where('open_id', $openId)
+        $dbUserInfo = WeChatUserInfoModel::where('open_id', $openId)
             ->where('original_id', $account->getOriginalId())->get()->toArray();
-        if (!$userExists) {
+        if (!$dbUserInfo) {
             $info               = $weChatUserInfo->getUserInfoByToken($simpleInfo['access_token'], $openId);
-            print_r($info);
             $model              = new WeChatUserInfoModel();
             $model->open_id     = $openId;
             $model->original_id = $account->getOriginalId();
@@ -46,7 +45,7 @@ class WeChatAuthController extends Controller
             $model->unionid     = isset($info['unionid']) ? $info['unionid'] : '';
             $saveResult         = $model->save();
             $saveStatus         = $saveResult ? true : false;
-        } else if (empty($userExists['nickname'])) {
+        } else if (empty($dbUserInfo['nickname'])) {
             $info = $weChatUserInfo->getUserInfoByToken($simpleInfo['access_token'], $openId);
             WeChatUserInfoModel::where('open_id', $openId)
                 ->where('original_id', $account->getOriginalId())
@@ -59,6 +58,7 @@ class WeChatAuthController extends Controller
                     'headimgurl' => isset($info['headimgurl']) ? $info['headimgurl'] : '',
                     'unionid'    => isset($info['unionid']) ? $info['unionid'] : ''
                 ]);
+            $dbUserInfo = array_merge($dbUserInfo, $info);
         }
 
 //        $a = Redis::get('a');
