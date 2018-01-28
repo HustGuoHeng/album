@@ -61,6 +61,8 @@ class WeChatAuthController extends Controller
             $dbUserInfo = array_merge($dbUserInfo, $info);
         }
 
+
+
 //        $a = Redis::get('a');
 //        echo $a;
 //         $redis = new \Redis();
