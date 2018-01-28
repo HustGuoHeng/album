@@ -32,6 +32,7 @@ class WeChatAuthController extends Controller
             ->where('original_id', $account->getOriginalId())->get()->toArray();
         if (!$userExists) {
             $info               = $weChatUserInfo->getUserInfoByToken($simpleInfo['access_token'], $openId);
+            print_r($info);
             $model              = new WeChatUserInfoModel();
             $model->open_id     = $openId;
             $model->original_id = $account->getOriginalId();
