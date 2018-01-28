@@ -32,6 +32,7 @@ class WeChatAuthController extends Controller
         //判断用户是否存在
         $userExists = WeChatUserInfoModel::where('open_id', $openId)
             ->where('original_id', $account->getOriginalId())->get()->toArray();
+        var_dump($userExists);
         if (!$userExists) {
             $info               = $weChatUserInfo->getUserInfoByToken($simpleInfo['access_token'], $openId);
             var_dump($info);
