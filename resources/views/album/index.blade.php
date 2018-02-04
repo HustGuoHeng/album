@@ -42,13 +42,13 @@
         <div class="list-block">
             <ul>
                 <li class="item-content">
-                    <div class="item-media"><i class="icon icon-f7"></i></div>
+                    <div class="item-media"><i class="icon icon-camera"></i></div>
                     <div class="item-inner">
                         <div class="item-title">目录</div>
                     </div>
                 </li>
                 <li class="item-content">
-                    <div class="item-media"><i class="icon icon-f7"></i></div>
+                    <div class="item-media"><i class="icon icon-camera"></i></div>
                     <div class="item-inner">
                         <div class="item-title">图片</div>
                     </div>
