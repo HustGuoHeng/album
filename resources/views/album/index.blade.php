@@ -3,7 +3,8 @@
 <head>
     <!-- Required meta tags-->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <!-- Your app title -->
@@ -25,6 +26,37 @@
         <p><a href="#" class="close-panel">关闭</a></p>
     </div>
 </div>
+<!-- About Popup -->
+<div class="popup popup-upload">
+    <!-- Top Navbar-->
+    <div class="navbar">
+        <div class="navbar-inner">
+            <!-- We need cool sliding animation on title element, so we have additional "sliding" class -->
+            <a href="#" class="close-popup link">
+                <i class="icon icon-back"></i>
+                <span>Back</span>
+            </a>
+        </div>
+    </div>
+    <div class="content-block">
+        <div class="list-block">
+            <ul>
+                <li class="item-content">
+                    <div class="item-media"><i class="icon icon-f7"></i></div>
+                    <div class="item-inner">
+                        <div class="item-title">目录</div>
+                    </div>
+                </li>
+                <li class="item-content">
+                    <div class="item-media"><i class="icon icon-f7"></i></div>
+                    <div class="item-inner">
+                        <div class="item-title">图片</div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
 
 <div class="views">
 
@@ -36,10 +68,13 @@
             <div class="navbar-inner">
                 <!-- We need cool sliding animation on title element, so we have additional "sliding" class -->
                 <div class="center sliding">HustGuoHeng</div>
-                <div class="right"><a href="#" class="open-panel link icon-only"><i class="icon icon-bars"></i></a></div>
+                <div class="right"><a href="#" class="open-panel link icon-only"><i class="icon icon-bars"></i></a>
+                </div>
             </div>
         </div>
-        <a href="#" class="floating-button color-pink"><i class="icon icon-plus"></i></a>
+
+        <a href="#" data-popup=".popup-upload" class="open-popup floating-button color-pink"><i
+                    class="icon icon-plus"></i></a>
         <!-- Pages container, because we use fixed-through navbar and toolbar, it has additional appropriate classes-->
         <div class="pages navbar-through toolbar-through">
             <!-- Page, "data-page" contains page name -->
@@ -74,9 +109,11 @@
                     </div>
                 </div>
 
-
             </div>
+
+
         </div>
+
 
     </div>
 </div>
