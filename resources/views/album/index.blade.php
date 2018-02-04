@@ -39,6 +39,7 @@
                 <div class="right"><a href="#" class="open-panel link icon-only"><i class="icon icon-bars"></i></a></div>
             </div>
         </div>
+        <a href="#" class="floating-button color-pink"><i class="icon icon-plus"></i></a>
         <!-- Pages container, because we use fixed-through navbar and toolbar, it has additional appropriate classes-->
         <div class="pages navbar-through toolbar-through">
             <!-- Page, "data-page" contains page name -->
@@ -72,6 +73,8 @@
                         </ul>
                     </div>
                 </div>
+
+
             </div>
         </div>
 
