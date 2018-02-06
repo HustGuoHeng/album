@@ -62,13 +62,10 @@ class WeChatAuthController extends Controller
 //        }
 
         return view('album/index');
-
-//        $a = Redis::get('a');
-//        echo $a;
-//         $redis = new \Redis();
-//        $redis->connect('r-bp1f199f80480c64.redis.rds.aliyuncs.com', 6379);
-//        $redis->auth('Hl6268695');
-
     }
 
+    public function uploadImage(Request $request)
+    {
+        return view('album/uploadImage');
+    }
 }

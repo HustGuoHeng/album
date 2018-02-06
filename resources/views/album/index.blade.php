@@ -27,7 +27,7 @@
     </div>
 </div>
 <!-- About Popup -->
-<div class="popup popup-upload">
+<div class="popup popup-image-upload">
     <!-- Top Navbar-->
     <div class="navbar">
         <div class="navbar-inner">
@@ -37,24 +37,11 @@
                 <span>Back</span>
             </a>
         </div>
+
+
     </div>
-    <div class="content-block">
-        <div class="list-block">
-            <ul>
-                <li class="item-content">
-                    <div class="item-media"><i class="icon icon-camera"></i></div>
-                    <div class="item-inner">
-                        <div class="item-title">目录</div>
-                    </div>
-                </li>
-                <li class="item-content">
-                    <div class="item-media"><i class="icon icon-camera"></i></div>
-                    <div class="item-inner">
-                        <div class="item-title">图片</div>
-                    </div>
-                </li>
-            </ul>
-        </div>
+    <div class="page-block">
+
     </div>
 </div>
 
@@ -72,9 +59,25 @@
                 </div>
             </div>
         </div>
+        <div class="speed-dial">
+            <!-- FAB inside will open Speed Dial actions -->
+            <a href="#" class="floating-button color-pink">
+                <!-- First icon is visible when Speed Dial actions are closed -->
+                <i class="icon icon-plus"></i>
+                <!-- Second icon is visible when Speed Dial actions are opened -->
+                <i class="icon icon-close"></i>
+            </a>
+            <!-- Speed Dial Actions -->
+            <div class="speed-dial-buttons">
+                <a href="#" data-popup=".popup-image-upload" class="open-popup">
+                    图片
+                </a>
 
-        <a href="#" data-popup=".popup-upload" class="open-popup floating-button color-pink"><i
-                    class="icon icon-plus"></i></a>
+                <a href="#" >
+                    目录
+                </a>
+            </div>
+        </div>
         <!-- Pages container, because we use fixed-through navbar and toolbar, it has additional appropriate classes-->
         <div class="pages navbar-through toolbar-through">
             <!-- Page, "data-page" contains page name -->
@@ -87,14 +90,14 @@
                             <li class="item-content">
                                 <div class="item-media"><i class="icon icon-f7"></i></div>
                                 <div class="item-inner">
-                                    <div class="item-title">Item title</div>
+                                    <div class="item-title">as</div>
                                     <div class="item-after little">2017/04/04</div>
                                 </div>
                             </li>
                             <li class="item-content">
                                 <div class="item-media"><i class="icon icon-f7"></i></div>
                                 <div class="item-inner">
-                                    <div class="item-title">Item with badgeasdasdasdasdasds</div>
+                                    <div class="item-ttle">Item with A</div>
                                     <div class="item-after little">2017/04/04</div>
                                 </div>
                             </li>
@@ -107,15 +110,15 @@
                             </li>
                         </ul>
                     </div>
+
                 </div>
 
             </div>
-
-
         </div>
 
 
     </div>
+
 </div>
 <!-- Path to Framework7 Library JS-->
 <script type="text/javascript" src="{{ URL::asset('js/framework7.min.js') }}"></script>
