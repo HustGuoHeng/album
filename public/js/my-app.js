@@ -7,10 +7,20 @@ var myApp = new Framework7({
 var $$ = Framework7.$;
 
 var mainView = myApp.addView('.view-main', {
-    // Because we want to use dynamic navbar, we need to enable it for this view:
     dynamicNavbar: true
 });
 
+$$('form.ajax-submit').on('submitted', function (e) {
+    var xhr = e.detail.xhr; // actual XHR object
+    var data = e.detail.data;
+    console.log(xhr);
+    console.log(data);
+    alert('a');
+});
+
+$$('.popup-image-upload .submit').on('click', function (e) {
+    $$('form.ajax-submit').trigger('submit');
+});
 // Now we need to run the code that will be executed only for About page.
 // For this case we need to add event listener for "pageInit" event
 

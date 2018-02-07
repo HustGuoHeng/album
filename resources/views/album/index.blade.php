@@ -27,22 +27,58 @@
     </div>
 </div>
 <!-- About Popup -->
-<div class="popup popup-image-upload">
+<div class="popup popup-image-upload view">
     <!-- Top Navbar-->
     <div class="navbar">
         <div class="navbar-inner">
             <!-- We need cool sliding animation on title element, so we have additional "sliding" class -->
-            <a href="#" class="close-popup link">
-                <i class="icon icon-back"></i>
-                <span>Back</span>
-            </a>
+
+            <div class="left">
+                <a href="#" class="close-popup link">
+                    <i class="icon icon-back"></i>
+                    <span>Back</span>
+                </a>
+            </div>
+            <div class="center">图片上传</div>
+            <div class="right">
+                <a href="#" class="submit link">
+                    <span>&nbsp;提交&nbsp;</span>
+                </a>
+            </div>
         </div>
-
-
     </div>
-    <div class="page-block">
-
+    <div class="list-block">
+        <div class="content-block-title"></div>
+        <div class="list-block">
+            <form action="{{ URL::asset('upload/image') }}" class="ajax-submit" method="post" enctype="multipart/form-data">
+                <ul>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-input">
+                                    <input type="text" name="name" placeholder="图片名称">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-input">
+                                    <label for="image">
+                                        <i class="icon icon-camera"></i>
+                                        <span>选择图片</span>
+                                    </label>
+                                    <input id="image" name='image' style="display: none" type="file" accept="image/*"/>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </form>
+        </div>
     </div>
+
 </div>
 
 <div class="views">
@@ -73,7 +109,7 @@
                     图片
                 </a>
 
-                <a href="#" >
+                <a href="#">
                     目录
                 </a>
             </div>

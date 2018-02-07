@@ -64,8 +64,5 @@ class WeChatAuthController extends Controller
         return view('album/index');
     }
 
-    public function uploadImage(Request $request)
-    {
-        return view('album/uploadImage');
-    }
+
 }
