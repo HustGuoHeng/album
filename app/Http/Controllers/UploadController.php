@@ -7,6 +7,6 @@ class UploadController extends Controller
 {
     public function image(Request $request)
     {
-        return response()->json('asdf');
+        return response()->json($request->input('name'));
     }
 }
