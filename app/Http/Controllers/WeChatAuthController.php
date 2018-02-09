@@ -15,6 +15,7 @@ class WeChatAuthController extends Controller
 
     public function index(Request $request)
     {
+        session(['userId' => '1']);
 //        $code  = $request->input('code');
 //        $state = $request->input('state');
 //
