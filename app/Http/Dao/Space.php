@@ -9,7 +9,6 @@ class Space
     {
         $model          = new SpaceModel();
         $spaceInfo      = $model->where('user_id', $userId)
-            ->select(array('id', 'total', 'used'))
             ->find(1);
         $availableSpace = $spaceInfo['total'] - $spaceInfo['used'];
         return $availableSpace > 0 ? intval($availableSpace) : 0;

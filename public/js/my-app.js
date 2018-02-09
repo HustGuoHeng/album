@@ -15,7 +15,6 @@ $$('form.ajax-submit').on('submitted', function (e) {
     var data = e.detail.data;
     console.log(xhr);
     console.log(data);
-    alert('a');
 });
 
 $$('.popup-image-upload .submit').on('click', function (e) {

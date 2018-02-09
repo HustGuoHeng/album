@@ -54,7 +54,7 @@ class Image
 
     public function checkImageExtension()
     {
-        if (!in_array($this->imageFile->getExtension(), ['jpg', 'jpeg', 'png', 'gif'])) {
+        if (!in_array($this->imageFile->getClientOriginalExtension(), ['jpg', 'jpeg', 'png', 'gif'])) {
             throw new ImageUploadException('错误的图片格式');
         }
     }
@@ -116,7 +116,7 @@ class Image
     {
         $name           = $this->getName();
         $tempName       = $this->imageFile->getFilename();
-        $this->saveName = md5($name . $tempName . microtime());
+        $this->saveName = md5($name . $tempName . microtime()) . '.' . $this->imageFile->getClientOriginalExtension();
     }
 
     public function getThumbnail()

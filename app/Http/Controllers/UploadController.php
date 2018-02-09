@@ -51,10 +51,10 @@ class UploadController extends Controller
     {
         DB::beginTransaction();
         try {
-            Space::cutAvailableSpace($image->getUserId(), $image->getSize());
+            Space::cutAvailableSpace($image->getUserId(), $image->getImageFile()->getSize());
             $availableSpace = Space::getAvailableSpace($image->getUserId());
             if ($availableSpace <= 0) {
-                throw new UserException('用户空间不足');
+                throw new UserException('用户空间不足'.$availableSpace);
             }
             $this->saveImageInfoToDataBase($image);
             $this->saveImageInfoToDisk($image);
@@ -107,8 +107,8 @@ class UploadController extends Controller
     {
         $image = new Image($request->file($file),
             $request->input('name'),
-            $request->input('parentId'),
-            $this->getUserId($request)
+            $this->getUserId($request),
+            $request->input('parentId')
         );
         return $image;
     }
