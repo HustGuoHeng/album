@@ -4,7 +4,7 @@ namespace App\Http\Entity\Upload;
 use App\Http\Exception\ImageUploadException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-class Image
+class ImageEntity
 {
     protected $parentId;
 
@@ -17,8 +17,6 @@ class Image
     protected $type = 2;
 
     protected $thumbnail = '';
-
-    protected $path;
 
     protected $size;
 
@@ -131,13 +129,16 @@ class Image
 
     public function getPath()
     {
-        return env('UPLOAD_IMAGE_SAVE_PATH') . '/' . $this->userId;
+        return '/' . $this->userId;
     }
 
 
     public function move()
     {
-        $this->imageFile->move($this->getPath(), $this->getSaveName());
+        $this->imageFile->move(
+            env('UPLOAD_IMAGE_SAVE_PATH') . $this->getPath(),
+            $this->getSaveName()
+        );
     }
 }
 
