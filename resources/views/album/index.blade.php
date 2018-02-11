@@ -165,27 +165,30 @@
                 <div class="page-content">
                     <div class="list-block">
                         <ul>
-                            <li class="item-content">
-                                <div class="item-media"><i class="icon icon-f7"></i></div>
-                                <div class="item-inner">
-                                    <div class="item-title">as</div>
-                                    <div class="item-after little">2017/04/04</div>
-                                </div>
-                            </li>
-                            <li class="item-content">
-                                <div class="item-media"><i class="icon icon-f7"></i></div>
-                                <div class="item-inner">
-                                    <div class="item-ttle">Item with A</div>
-                                    <div class="item-after little">2017/04/04</div>
-                                </div>
-                            </li>
-                            <li class="item-content">
-                                <div class="item-media"><i class="icon icon-f7"></i></div>
-                                <div class="item-inner">
-                                    <div class="item-title">Another item</div>
-                                    <div class="item-after little">2017/04/04</div>
-                                </div>
-                            </li>
+                            @foreach ($data as $value)
+                                <li class="swipeout">
+                                    <div class="swipeout-content item-content">
+                                        <div class="item-media">
+                                            @if ($value['type'] == 1)
+                                                <img style="width:30px" src="{{ URL::asset('img/dir.jpeg') }}">
+                                            @elseif ($value['type'] == 2)
+                                                <img style="width:30px" src="{{ URL::asset('img/image.png') }}">
+                                            @endif
+                                        </div>
+                                        <div class="item-inner">
+                                            @if ($value['type'] == 2)
+                                                {{ $value['name'] }}
+                                            @elseif ($value['type'] == 1)
+                                                <a href="{{ URL::asset("wechat/path/".$value['id']) }}" class="link" >{{ $value['name'] }}</a>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <div class="swipeout-actions-right">
+                                        <a href="#" class="action1 bg-red">编辑</a>
+                                        <a href="#" class="action2">删除</a>
+                                    </div>
+                                </li>
+                            @endforeach
                         </ul>
                     </div>
 

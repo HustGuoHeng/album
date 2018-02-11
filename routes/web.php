@@ -24,3 +24,4 @@ Route::any('/wechat', 'WeChatDockingController@index');
 Route::get('/wechatAuth', 'WeChatAuthController@index');
 Route::any('/upload/image', 'UploadController@image');
 Route::any('/upload/dir', 'UploadController@dir');
+Route::get('/wechat/path/{id}', 'WeChatAuthController@path');

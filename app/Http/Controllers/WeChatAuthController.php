@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Http\Models\VirtualDiskModel;
 use App\Http\Models\WeChatUserInfoModel;
 use App\Http\Services\WeChat\Entity\Account;
 use App\Http\Services\WeChat\Sdk\Auth\UserInfo;
@@ -62,8 +63,34 @@ class WeChatAuthController extends Controller
 //            $dbUserInfo = array_merge($dbUserInfo, $info);
 //        }
 
-        return view('album/index');
+        $userId = 1;
+        $parentId = 0;
+        $data = $this->getDisplayFiles($userId, $parentId);
+
+        return view('album/index',['data' => $data]);
     }
 
+    public function path(Request $request, $id)
+    {
+        $userId = $request->session()->get('userId', 0);
+        $data = $this->getDisplayFiles($userId, $id);
+        $dirInfo = $this->getDisplayDirInfo($userId, $id);
+        return view('album/path', compact('userId', 'data', 'dirInfo'));
+    }
 
+    private function getDisplayFiles($userId, $parentId)
+    {
+        $model = new VirtualDiskModel();
+        $data = $model->where('user_id', $userId)
+            ->where('parent_id', $parentId)
+            ->get()->toArray();
+        return $data;
+    }
+
+    private function getDisplayDirInfo($userId, $id)
+    {
+        $model = new VirtualDiskModel();
+        $data = $model->where('user_id', $userId)->find($id)->toArray();
+        return $data;
+    }
 }

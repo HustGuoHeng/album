@@ -52,15 +52,19 @@ $$('.popup-dir-upload .submit').on('click', function (e) {
 // For this case we need to add event listener for "pageInit" event
 
 // Option 1. Using one 'pageInit' event handler for all pages (recommended way):
-// $$(document).on('pageInit', function (e) {
+$$(document).on('pageInit', function (e) {
   // Get page data from event data
-  // var page = e.detail.page;
+  var page = e.detail.page;
   
-  // if (page.name === 'about') {
+  if (page.name === 'about') {
     // Following code will be executed for page with data-page attribute equal to "about"
-    // myApp.alert('Here comes About page');
-  // }
-// });
+    myApp.alert('Here comes About page');
+  }
+  console.log(page.name);
+  if (page.name === 'index') {
+      console.log('a');
+  }
+});
 
 function previewFile() {
     var preview = document.getElementById('img_preview');

@@ -19,24 +19,24 @@ class UploadController extends Controller
     public function image(Request $request)
     {
         $callback = $request->input('callback');
-//        try {
-//            $this->uploadImage($request);
-//        } catch (UserException $e) {
-//            return response()->jsonp($callback, [
-//                'status' => 1,
-//                'msg'    => $e->getMessage()
-//            ]);
-//        } catch (ImageUploadException $e) {
-//            return response()->jsonp($callback, [
-//                'status' => 2,
-//                'msg'    => $e->getMessage()
-//            ]);
-//        } catch (\Exception $e) {
-//            return response()->jsonp($callback, [
-//                'status' => 0,
-//                'msg'    => $e->getMessage()
-//            ]);
-//        }
+        try {
+            $this->uploadImage($request);
+        } catch (UserException $e) {
+            return response()->jsonp($callback, [
+                'status' => 1,
+                'msg'    => $e->getMessage()
+            ]);
+        } catch (ImageUploadException $e) {
+            return response()->jsonp($callback, [
+                'status' => 2,
+                'msg'    => $e->getMessage()
+            ]);
+        } catch (\Exception $e) {
+            return response()->jsonp($callback, [
+                'status' => 0,
+                'msg'    => $e->getMessage()
+            ]);
+        }
 
         return response()->jsonp($callback, [
             'status' => 1,
