@@ -8,7 +8,7 @@ class UserInfo
     public static function getAvailableSpace($userId)
     {
         $model          = new UserInfoModel();
-        $spaceInfo      = $model->where('user_id', $userId)
+        $spaceInfo      = $model->where('id', $userId)
             ->find(1);
         $availableSpace = $spaceInfo['total'] - $spaceInfo['used'];
         return $availableSpace > 0 ? intval($availableSpace) : 0;
@@ -19,6 +19,6 @@ class UserInfo
     {
         $model  = new UserInfoModel();
 
-        $model->where('user_id', $userId)->increment('used', intval($space));
+        $model->where('id', $userId)->increment('used', intval($space));
     }
 }
