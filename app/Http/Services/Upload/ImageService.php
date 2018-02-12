@@ -44,7 +44,7 @@ class ImageService
         }
     }
 
-    private function saveInfoToDisk(ImageEntity $image)
+    private static function saveInfoToDisk(ImageEntity $image)
     {
         $image->move();
     }
