@@ -22,7 +22,7 @@ $$('form.image-ajax-submit').on('submitted', function (e) {
         });
     } else {
         myApp.alert('上传失败', '图片', function () {
-            console.log(data);
+            console.log(data.msg);
         });
     }
 });
