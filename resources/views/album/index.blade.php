@@ -50,7 +50,8 @@
     <div class="list-block">
         <div class="content-block-title"></div>
         <div class="list-block">
-            <form action="{{ URL::asset('upload/image') }}" class="image-ajax-submit ajax-submit upload-ajax-submit" method="post"
+            <form action="{{ URL::asset('upload/image') }}" class="image-ajax-submit ajax-submit upload-ajax-submit"
+                  method="post"
                   enctype="multipart/form-data">
                 <ul>
                     <li>
@@ -108,7 +109,8 @@
     <div class="list-block">
         <div class="content-block-title"></div>
         <div class="list-block">
-            <form action="{{ URL::asset('upload/dir') }}" class="dir-ajax-submit ajax-submit upload-ajax-submit" method="post">
+            <form action="{{ URL::asset('upload/dir') }}" class="dir-ajax-submit ajax-submit upload-ajax-submit"
+                  method="post">
                 <ul>
                     <li>
                         <div class="item-content">
@@ -134,7 +136,7 @@
         <div class="navbar">
             <div class="navbar-inner">
                 <!-- We need cool sliding animation on title element, so we have additional "sliding" class -->
-                <div class="center sliding">HustGuoHeng</div>
+                <div class="center sliding">{{$name}}</div>
                 <div class="right"><a href="#" class="open-panel link icon-only"><i class="icon icon-bars"></i></a>
                 </div>
             </div>
