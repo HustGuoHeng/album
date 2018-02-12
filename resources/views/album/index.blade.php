@@ -50,7 +50,8 @@
     <div class="list-block">
         <div class="content-block-title"></div>
         <div class="list-block">
-            <form action="{{ URL::asset('upload/image') }}" class="image-ajax-sbumit ajax-submit" method="post" enctype="multipart/form-data">
+            <form action="{{ URL::asset('upload/image') }}" class="image-ajax-submit ajax-submit upload-ajax-submit" method="post"
+                  enctype="multipart/form-data">
                 <ul>
                     <li>
                         <div class="item-content">
@@ -69,7 +70,8 @@
                                         <i class="icon icon-camera"></i>
                                         <span>选择图片</span>
                                     </label>
-                                    <input id="image" onchange="previewFile()" name='image' style="display: none" type="file" accept="image/*"/>
+                                    <input id="image" onchange="previewFile()" name='image' style="display: none"
+                                           type="file" accept="image/*"/>
                                 </div>
                             </div>
                         </div>
@@ -106,7 +108,7 @@
     <div class="list-block">
         <div class="content-block-title"></div>
         <div class="list-block">
-            <form action="{{ URL::asset('upload/dir') }}" class="dir-ajax-submit ajax-submit" method="post">
+            <form action="{{ URL::asset('upload/dir') }}" class="dir-ajax-submit ajax-submit upload-ajax-submit" method="post">
                 <ul>
                     <li>
                         <div class="item-content">
@@ -164,36 +166,9 @@
                 <!-- Floatin Action Button -->
                 <div class="page-content">
                     <div class="list-block">
-                        <ul>
-                            @foreach ($data as $value)
-                                <li class="swipeout">
-                                    <div class="swipeout-content item-content">
-                                        <div class="item-media">
-                                            @if ($value['type'] == 1)
-                                                <img style="width:30px" src="{{ URL::asset('img/dir.jpeg') }}">
-                                            @elseif ($value['type'] == 2)
-                                                <img style="width:30px" src="{{ URL::asset('img/image.png') }}">
-                                            @endif
-                                        </div>
-                                        <div class="item-inner">
-                                            @if ($value['type'] == 2)
-                                                {{ $value['name'] }}
-                                            @elseif ($value['type'] == 1)
-                                                <a href="{{ URL::asset("wechat/path/".$value['id']) }}" class="link" >{{ $value['name'] }}</a>
-                                            @endif
-                                        </div>
-                                    </div>
-                                    <div class="swipeout-actions-right">
-                                        <a href="#" class="action1 bg-red">编辑</a>
-                                        <a href="#" class="action2">删除</a>
-                                    </div>
-                                </li>
-                            @endforeach
-                        </ul>
+                        @include('album/fileList', ['data' => $data])
                     </div>
-
                 </div>
-
             </div>
         </div>
 

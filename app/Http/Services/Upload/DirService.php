@@ -21,7 +21,7 @@ class DirService
         $model->type      = $dir->getType();
         $model->thumbnail = $dir->getThumbnail();
         $model->path      = '';
-        $model->size      = 0;
+        $model->size      = 1;
         $status           = $model->save();
         if (!$status) {
             throw new \Exception('数据库添加用户数据失败');

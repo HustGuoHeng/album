@@ -3,7 +3,7 @@ namespace App\Http\Services\Upload;
 
 use App\Http\Entity\Upload\ImageEntity;
 use Illuminate\Support\Facades\DB;
-use App\Http\Dao\Space;
+use App\Http\Dao\UserInfo;
 use App\Http\Exception\UserException;
 use App\Http\Models\VirtualDiskModel;
 
@@ -14,8 +14,8 @@ class ImageService
     {
         DB::beginTransaction();
         try {
-            Space::cutAvailableSpace($image->getUserId(), $image->getImageFile()->getSize());
-            $availableSpace = Space::getAvailableSpace($image->getUserId());
+            UserInfo::cutAvailableSpace($image->getUserId(), $image->getImageFile()->getSize());
+            $availableSpace = UserInfo::getAvailableSpace($image->getUserId());
             if ($availableSpace <= 0) {
                 throw new UserException('用户空间不足'.$availableSpace);
             }

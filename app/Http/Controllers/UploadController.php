@@ -6,7 +6,7 @@ use App\Http\Entity\Upload\DirEntity;
 use App\Http\Exception\ImageUploadException;
 use App\Http\Exception\UserException;
 use App\Http\Models\VirtualDiskModel;
-use App\Http\Dao\Space;
+use App\Http\Dao\UserInfo;
 use App\Http\Services\Upload\DirService;
 use App\Http\Services\Upload\ImageService;
 use Faker\Provider\Image;
@@ -62,7 +62,9 @@ class UploadController extends Controller
         } catch (\Exception $e) {
             return response()->jsonp($callback, [
                 'status' => 0,
-                'msg'    => $e->getMessage()
+                'msg'    => $e->getMessage(),
+                'extre' =>             $request->input('name'),
+
             ]);
         }
         return response()->jsonp($callback, [

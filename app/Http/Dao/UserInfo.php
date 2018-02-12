@@ -1,13 +1,13 @@
 <?php
 namespace App\Http\Dao;
 
-use App\Http\Models\SpaceModel;
+use App\Http\Models\UserInfoModel;
 
-class Space
+class UserInfo
 {
     public static function getAvailableSpace($userId)
     {
-        $model          = new SpaceModel();
+        $model          = new UserInfoModel();
         $spaceInfo      = $model->where('user_id', $userId)
             ->find(1);
         $availableSpace = $spaceInfo['total'] - $spaceInfo['used'];
@@ -17,7 +17,7 @@ class Space
 
     public static function cutAvailableSpace($userId, $space)
     {
-        $model  = new SpaceModel();
+        $model  = new UserInfoModel();
 
         $model->where('user_id', $userId)->increment('used', intval($space));
     }

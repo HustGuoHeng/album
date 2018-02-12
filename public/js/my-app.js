@@ -1,9 +1,9 @@
 var myApp = new Framework7({
     pushState: true,
-    swipePanel: 'right',
+    swipePanel: 'right'
     // ... other parameters
 });
-
+window.parentId = 0;
 var $$ = Framework7.$;
 
 var mainView = myApp.addView('.view-main', {
@@ -41,35 +41,47 @@ $$('form.dir-ajax-submit').on('submitted', function (e) {
 });
 
 
-
 $$('.popup-image-upload .submit').on('click', function (e) {
-    $$('form.image-ajax-submit').trigger('submit');
+    var form = $$('form.image-ajax-submit');
+    rewriteFormAction(form);
+    form.trigger('submit');
 });
 $$('.popup-dir-upload .submit').on('click', function (e) {
-   $$('form.dir-ajax-submit').trigger('submit');
+    var form = $$('form.dir-ajax-submit');
+    rewriteFormAction(form);
+    form.trigger('submit');
 });
-// Now we need to run the code that will be executed only for About page.
-// For this case we need to add event listener for "pageInit" event
 
-// Option 1. Using one 'pageInit' event handler for all pages (recommended way):
+function rewriteFormAction(form) {
+    var action = form.attr('action');
+    action = action.split('?');
+    action = action['0'];
+    form.attr('action', action + "?" + "parentId=" + window.parentId);
+}
+
 $$(document).on('pageInit', function (e) {
-  // Get page data from event data
-  var page = e.detail.page;
-  
-  if (page.name === 'about') {
-    // Following code will be executed for page with data-page attribute equal to "about"
-    myApp.alert('Here comes About page');
-  }
-  console.log(page.name);
-  if (page.name === 'index') {
-      console.log('a');
-  }
+    var page = e.detail.page;
+    if (page.name === 'file-list') {
+        var match = page.url.match(/^.*\/(\d{1,})\?*.*$/);
+        window.parentId = match['1'];
+    }
 });
+myApp.onPageBack('file-list', function (page) {
+    var activePage = page.view.activePage;
+    console.log(activePage);
+    if (activePage.fromPage.name == 'file-list') {
+        var match = activePage.fromPage.url.match(/^.*\/(\d{1,})\?*.*$/);
+        window.parentId = match['1'];
+    } else if (activePage.fromPage.name == 'index') {
+        window.parentId = 0;
+    }
+});
+
 
 function previewFile() {
     var preview = document.getElementById('img_preview');
-    var file    = document.getElementById('image').files[0];
-    var reader  = new FileReader();
+    var file = document.getElementById('image').files[0];
+    var reader = new FileReader();
 
     reader.onloadend = function () {
         preview.src = reader.result;
@@ -82,3 +94,30 @@ function previewFile() {
     }
 }
 
+
+//图片相册
+$$(document).on('click', '.album-pictures .album-picture-li', function () {
+    var photos = [];
+    var index = 0;
+    var _this = $$(this).find('.album-picture').eq(0);
+    $$(this).parents('.album-pictures').find('.album-picture').each(function (a, b) {
+        if ($$(this).data('id') == _this.data('id')) {
+            index = a;
+        }
+        photos.push({
+            'url': $$(this).data('image'),
+            'caption': $$(this).html()
+        });
+    });
+    var myPhotoBrowser = myApp.photoBrowser({
+        zoom: 400,
+        photos: photos,
+        initialSlide: index,
+        theme: 'dark',
+        lazyLoading: true,
+        lazyLoadingInPrevNext: false,
+        lazyLoadingOnTransitionStart: true,
+        ofText: '/'
+    });
+    myPhotoBrowser.open(); // 打开图片浏览器
+});

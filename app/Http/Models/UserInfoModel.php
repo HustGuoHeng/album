@@ -3,8 +3,7 @@ namespace App\Http\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class SpaceModel extends Model
+class UserInfoModel extends Model
 {
-    protected $table = 'space';
-
+    protected $table = 'user_info';
 }
