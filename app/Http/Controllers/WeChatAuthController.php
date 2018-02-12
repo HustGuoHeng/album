@@ -54,11 +54,9 @@ class WeChatAuthController extends Controller
                 exit();
             }
         } else {
-            $dbUserInfo['user_id'] = 1;
-            session(['userId' => 1]);
             $userId = 1;
-            $dbUserInfo['nickname'] = 'hustguoheng';
-
+            $dbUserInfo = WeChatUserInfoModel::where('user_id', $userId)->first()->toArray();
+            session(['userId' => 1]);
         }
         $name = $dbUserInfo['nickname'];
 
