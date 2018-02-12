@@ -23,8 +23,8 @@ class WeChatAuthController extends Controller
     public function index(Request $request)
     {
         $code  = $request->input('code');
-        Log::info('start:'.microtime());
-        if ($code) {
+        $userId = $request->session()->get('userId');
+        if ($code && empty($userId)) {
             try {
                 //从微信获取网页授权access_token、openid、refresh_token并存储
                 $account        = new Account($this->originalId);
@@ -46,24 +46,27 @@ class WeChatAuthController extends Controller
                     $this->updateWeChatInfo($openId, $account, $info);
                     $dbUserInfo = array_merge($dbUserInfo, $info);
                 }
+
+                $userId = $dbUserInfo['user_id'];
+                session(['userId' => $userId]);
             } catch (\Exception $e) {
                 echo '页面不见啦……';
                 exit();
             }
         } else {
             $dbUserInfo['user_id'] = 1;
+            session(['userId' => 1]);
+            $userId = 1;
             $dbUserInfo['nickname'] = 'hustguoheng';
+
         }
         Log::info('getUserInfo:'.microtime());
 
-        $userId = $dbUserInfo['user_id'];
-        session(['userId' => $userId]);
 
         $name = $dbUserInfo['nickname'];
 
         $parentId = 0;
         $data     = $this->getDisplayFiles($userId, $parentId);
-        Log::info('render:'.microtime());
 
         return view('album/index', compact('data', 'name', 'userId'));
     }
