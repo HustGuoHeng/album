@@ -9,6 +9,8 @@ use App\Http\Services\WeChat\Sdk\Auth\UserInfo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use League\Flysystem\Exception;
 
 
@@ -87,6 +89,9 @@ class WeChatAuthController extends Controller
         DB::beginTransaction();
         try {
             $dbUserInfo = $this->createAndReturnNewWeChatUser($openId, $account, $info);
+            if (!Storage::disk('upload')->exists($dbUserInfo['id'])) {
+                Storage::disk('upload')->makeDirectory($dbUserInfo['id'], 777);
+            }
         } catch (\Exception $e) {
             DB::rollback();
             throw $e;
