@@ -9,6 +9,7 @@ use App\Http\Services\WeChat\Sdk\Auth\UserInfo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -22,7 +23,7 @@ class WeChatAuthController extends Controller
     public function index(Request $request)
     {
         $code  = $request->input('code');
-
+        Log::info('start:'.microtime());
         if ($code) {
             try {
                 //从微信获取网页授权access_token、openid、refresh_token并存储
@@ -53,6 +54,7 @@ class WeChatAuthController extends Controller
             $dbUserInfo['user_id'] = 1;
             $dbUserInfo['nickname'] = 'hustguoheng';
         }
+        Log::info('getUserInfo:'.microtime());
 
         $userId = $dbUserInfo['user_id'];
         session(['userId' => $userId]);
@@ -61,6 +63,7 @@ class WeChatAuthController extends Controller
 
         $parentId = 0;
         $data     = $this->getDisplayFiles($userId, $parentId);
+        Log::info('render:'.microtime());
 
         return view('album/index', compact('data', 'name', 'userId'));
     }
