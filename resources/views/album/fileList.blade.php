@@ -1,7 +1,7 @@
 @if($data)
     <ul class="album-pictures">
         @foreach ($data as $value)
-            <li class="swipeout @if ($value['type'] == 2) album-picture-li @endif">
+            <li class="swipeout>
                 <div class="swipeout-content item-content">
                     <div class="item-media">
                         @if ($value['type'] == 1)
@@ -11,7 +11,7 @@
                         @endif
                     </div>
                     @if ($value['type'] == 2)
-                        <div class="item-inner">
+                        <div class="item-inner album-picture-inner">
                             <span class="album-picture"
                                   data-image="{{ env('IMAGE_BASE_PATH') . $value['path'] . '/' . $value['save_name'] }}"
                                   data-id="{{$value['id']}}">

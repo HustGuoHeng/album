@@ -96,7 +96,7 @@ function previewFile() {
 
 
 //图片相册
-$$(document).on('click', '.album-pictures .album-picture-li', function () {
+$$(document).on('click', '.album-pictures .album-picture-inner', function () {
     var photos = [];
     var index = 0;
     var _this = $$(this).find('.album-picture').eq(0);
