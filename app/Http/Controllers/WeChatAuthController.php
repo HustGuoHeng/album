@@ -50,7 +50,7 @@ class WeChatAuthController extends Controller
             exit();
         }
 
-        $userId = $dbUserInfo['id'];
+        $userId = $dbUserInfo['user_id'];
         session(['userId' => $userId]);
 
         $name = $dbUserInfo['nickname'];
