@@ -21,7 +21,7 @@ $$('form.image-ajax-submit').on('submitted', function (e) {
             myApp.closeModal('.popup-image-upload');
         });
     } else {
-        myApp.alert('上传失败', '图片', function () {
+        myApp.alert('上传失败'+data.msg, '图片', function () {
             console.log(data.msg);
         });
     }
