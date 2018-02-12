@@ -60,9 +60,6 @@ class WeChatAuthController extends Controller
             $dbUserInfo['nickname'] = 'hustguoheng';
 
         }
-        Log::info('getUserInfo:'.microtime());
-
-
         $name = $dbUserInfo['nickname'];
 
         $parentId = 0;
