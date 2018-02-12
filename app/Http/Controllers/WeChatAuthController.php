@@ -7,6 +7,7 @@ use App\Http\Models\WeChatUserInfoModel;
 use App\Http\Services\WeChat\Entity\Account;
 use App\Http\Services\WeChat\Sdk\Auth\UserInfo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Storage;
