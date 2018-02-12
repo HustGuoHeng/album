@@ -1,7 +1,7 @@
 @if($data)
     <ul class="album-pictures">
         @foreach ($data as $value)
-            <li class="swipeout>
+            <li class="swipeout">
                 <div class="swipeout-content item-content">
                     <div class="item-media">
                         @if ($value['type'] == 1)
