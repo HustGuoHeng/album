@@ -26,8 +26,12 @@ class ProjectService
 
     public function create($project)
     {
+        if (empty($project)) {
+            throw new \Exception('项目名称不能为空');
+        }
+
         if ($this->projectExist($project)) {
-            return true;
+            throw new \Exception('项目名称已经存在');
         }
 
         if ($this->add($project)) {

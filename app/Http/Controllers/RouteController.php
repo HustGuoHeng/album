@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Services\Web\RouteService;
 use Illuminate\Http\Request;
 
 class RouteController extends Controller
@@ -17,6 +18,36 @@ class RouteController extends Controller
         $startTime  = isset($createTime[0]) ? $createTime[0] : null;
         $endTime    = isset($createTime[1]) ? $createTime[1] : null;
 
+        $service = new RouteService();
+        $data    = $service->page($page, $pageSize, $project, $startTime, $endTime);
 
+        return $this->jsonReturn($data, $request);
+
+    }
+
+    public function create(Request $request)
+    {
+        $project     = $request->input('projectId');
+        $route       = $request->input('route');
+        $description = $request->input('description');
+
+        $service = new RouteService();
+        try {
+            $status = $service->create($route, $description, $project);
+        } catch (\Exception $e) {
+            $status = 0;
+            $msg    = $e->getMessage();
+        }
+        $result = [
+            'status' => $status ? 1 : 0,
+            'msg'    => isset($msg) ? $msg : ''
+        ];
+
+        return $this->jsonReturn($result, $request);
+    }
+
+    protected function jsonReturn($result, $request)
+    {
+        return response()->json($result)->withCallback($request->input('callback'));
     }
 }

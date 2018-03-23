@@ -20,6 +20,10 @@ Route::get('/project/create', 'ProjectController@create');
 Route::get('/project/update', 'ProjectController@update');
 Route::get('/project/delete', 'ProjectController@delete');
 
+Route::get('/route', 'RouteController@index');
+Route::get('/route/create', 'RouteController@create');
+
+
 Route::any('/wechat', 'WeChatDockingController@index');
 Route::get('/wechatAuth', 'WeChatAuthController@index');
 Route::any('/upload/image', 'UploadController@image');

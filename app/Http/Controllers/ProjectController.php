@@ -36,9 +36,15 @@ class ProjectController extends Controller
         $project = $request->input('project');
 
         $service = new ProjectService();
-        $status  = $service->create($project);
-        $result  = [
-            'status' => $status ? 1 : 0
+        try {
+            $status = $service->create($project);
+        } catch (\Exception $e) {
+            $status = 0;
+            $msg    = $e->getMessage();
+        }
+        $result = [
+            'status' => $status ? 1 : 0,
+            'msg'    => isset($msg) ? $msg : ''
         ];
 
         return $this->jsonReturn($result, $request);
@@ -58,7 +64,7 @@ class ProjectController extends Controller
 
     public function delete(Request $request)
     {
-        $id      = $request->input('id');
+        $id = $request->input('id');
 
         $service = new ProjectService();
         $status  = $service->delete($id);
