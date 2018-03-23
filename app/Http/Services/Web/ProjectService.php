@@ -1,7 +1,7 @@
 <?php
-namespace App\Http\Services;
+namespace App\Http\Services\Web;
 
-use App\Http\Models\ProjectModel;
+use App\Http\Models\Web\ProjectModel;
 
 class ProjectService
 {
