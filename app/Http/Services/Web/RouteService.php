@@ -15,7 +15,12 @@ class RouteService
         $count = $orm->count('id');
 
         $page = new Page($page, $pageSize, $count);
-        $data = $orm->limit($page->getNumber(), $page->getOffset())->orderBy('id', 'desc')->get()->toArray();
+        $data = $orm->limit($page->getNumber(), $page->getOffset())
+            ->select('news_route.*', 'news_project.project')
+            ->orderBy('news_route.id', 'desc')
+            ->leftJoin('news_project', 'news_route.project_id', '=', 'news_project.id')
+            ->get()
+            ->toArray();
         return [
             'data'     => $data,
             'total'    => $count,
@@ -66,7 +71,7 @@ class RouteService
 
     private function getPageOrm($project, $startTime, $endTime)
     {
-        $orm = RouteModel::where('status', 1);
+        $orm = RouteModel::where('news_route.status', 1);
         if (!empty($project)) {
             if (is_array($project)) {
                 $orm = $orm->whereIn('project_id', $project);
