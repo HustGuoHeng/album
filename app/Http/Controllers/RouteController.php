@@ -11,7 +11,8 @@ class RouteController extends Controller
     {
         $page     = $request->input('page');
         $pageSize = $request->input('pageSize');
-        $project  = $request->input('project');
+        $route    = $request->input('route');
+        $project  = $request->input('projectSelected');
         $project  = empty($project) ? [] : explode(',', $project);
 
         $createTime = $request->input('createTime');
@@ -19,7 +20,7 @@ class RouteController extends Controller
         $endTime    = isset($createTime[1]) ? $createTime[1] : null;
 
         $service = new RouteService();
-        $data    = $service->page($page, $pageSize, $project, $startTime, $endTime);
+        $data    = $service->page($page, $pageSize, $route, $project, $startTime, $endTime);
 
         return $this->jsonReturn($data, $request);
 

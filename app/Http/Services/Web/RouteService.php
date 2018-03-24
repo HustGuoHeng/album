@@ -9,9 +9,9 @@ use League\Flysystem\Exception;
 
 class RouteService
 {
-    public function page($page, $pageSize, $project, $startTime, $endTime)
+    public function page($page, $pageSize, $route, array $project, $startTime, $endTime)
     {
-        $orm   = $this->getPageOrm($project, $startTime, $endTime);
+        $orm   = $this->getPageOrm($route, $project, $startTime, $endTime);
         $count = $orm->count('id');
 
         $page = new Page($page, $pageSize, $count);
@@ -69,16 +69,16 @@ class RouteService
         return md5($route);
     }
 
-    private function getPageOrm($project, $startTime, $endTime)
+    private function getPageOrm($route, array $project, $startTime, $endTime)
     {
         $orm = RouteModel::where('news_route.status', 1);
         if (!empty($project)) {
-            if (is_array($project)) {
-                $orm = $orm->whereIn('project_id', $project);
-            } else {
-                $orm = $orm->where('project', '=', $project);
+            $orm = $orm->whereIn('project_id', $project);
+            if (!empty($route)) {
+                $orm = $orm->where('route', 'like', '%' . $route . '%');
             }
         }
+
         if ($startTime) {
             $startTime = date('Y-m-d H:i:s', strtotime($startTime));
             $orm       = $orm->where('created_at', '>=', $startTime);
