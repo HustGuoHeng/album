@@ -28,7 +28,7 @@ class RouteController extends Controller
     public function create(Request $request)
     {
         $project     = $request->input('projectId');
-        $route       = $request->input('proute');
+        $route       = $request->input('route');
         $description = $request->input('description');
 
         $service = new RouteService();
