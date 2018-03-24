@@ -30,17 +30,19 @@ class RouteService
         if (!ProjectModel::find($projectId)) {
             throw new Exception('项目ID不存在');
         }
-        if ($this->checkRoute($route)) {
+        if ($this->checkRoute($route, $projectId)) {
             throw new Exception('该路由已经配置');
         }
 
         return $this->add($route, $description, $projectId);
     }
 
-    public function checkRoute($route)
+    public function checkRoute($route, $projectId)
     {
         $hash = $this->genRouteHash($route);
-        return RouteModel::where('status', 1)->where('route_hash', $hash)->get()->toArray();
+        return RouteModel::where('status', 1)
+            ->where('project_id', $projectId)
+            ->where('route_hash', $hash)->get()->toArray();
     }
 
     protected function add($route, $description, $projectId)
