@@ -42,12 +42,30 @@ class RouteService
         return $this->add($route, $description, $projectId);
     }
 
-    public function checkRoute($route, $projectId)
+    public function update($routeId, $route, $description, $projectId)
     {
-        $hash = $this->genRouteHash($route);
-        return RouteModel::where('status', 1)
+        if ($this->checkRoute($route, $projectId, $routeId)) {
+            throw new Exception('该路由已经配置');
+        }
+
+        return RouteModel::where('id', $routeId)
+            ->update([
+                'route'       => $route,
+                'description' => $description,
+                'route_hash'  => $this->genRouteHash($route)
+            ]);
+    }
+
+    public function checkRoute($route, $projectId, $routeId = null)
+    {
+        $hash  = $this->genRouteHash($route);
+        $model = RouteModel::where('status', 1)
             ->where('project_id', $projectId)
-            ->where('route_hash', $hash)->get()->toArray();
+            ->where('route_hash', $hash);
+        if ($routeId) {
+            $model = $model->where('id', '!=', $routeId);
+        }
+        return $model->get()->toArray();
     }
 
     protected function add($route, $description, $projectId)
@@ -66,7 +84,7 @@ class RouteService
 
     protected function genRouteHash($route)
     {
-        return md5($route);
+        return md5(trim($route));
     }
 
     private function getPageOrm($route, array $project, $startTime, $endTime)

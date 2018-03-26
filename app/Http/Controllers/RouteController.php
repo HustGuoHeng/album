@@ -58,8 +58,26 @@ class RouteController extends Controller
 
     public function update(Request $request)
     {
-        $routeId = $request->input('id');
+        $routeId     = $request->input('id');
+        $description = $request->input('description');
+        $route       = $request->input('route');
+        $projectId   = $request->input('projectId');
+
+        $service = new RouteService();
+        try {
+            $status = $service->update($routeId, $route, $description, $projectId);
+        } catch (\Exception $e) {
+            $status = 0;
+            $msg    = $e->getMessage();
+        }
+        $result = [
+            'status' => $status ? 1 : 0,
+            'msg'    => isset($msg) ? $msg : ''
+        ];
+
+        return $this->jsonReturn($result, $request);
     }
+
     protected function jsonReturn($result, $request)
     {
         return response()->json($result)->withCallback($request->input('callback'));
