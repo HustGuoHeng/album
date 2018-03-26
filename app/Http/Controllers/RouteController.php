@@ -28,10 +28,18 @@ class RouteController extends Controller
 
     public function create(Request $request)
     {
-        $project     = intval($request->input('projectId'));
+        $project     = $request->input('projectId');
         $route       = $request->input('route');
         $description = $request->input('description');
 
+        if (!is_numeric($project)) {
+            $result = [
+                'status' => 0,
+                'msg'    => '错误的项目'
+            ];
+            return $this->jsonReturn($result, $request);
+
+        }
         $service = new RouteService();
         try {
             $status = $service->create($route, $description, $project);
