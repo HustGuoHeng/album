@@ -17,7 +17,7 @@ class RouteService
         $page = new Page($page, $pageSize, $count);
         $data = $orm->limit($page->getNumber(), $page->getOffset())
             ->select('news_route.*', 'news_project.project')
-            ->orderBy('news_route.id', 'desc')
+            ->orderBy('news_route.id', 'asc')
             ->leftJoin('news_project', 'news_route.project_id', '=', 'news_project.id')
             ->get()
             ->toArray();

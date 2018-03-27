@@ -78,6 +78,12 @@ class RouteController extends Controller
         return $this->jsonReturn($result, $request);
     }
 
+    public function delete(Request $request)
+    {
+        $routeId = $request->input('id');
+
+    }
+
     protected function jsonReturn($result, $request)
     {
         return response()->json($result)->withCallback($request->input('callback'));
