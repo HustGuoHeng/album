@@ -14,7 +14,7 @@ class ProjectService
         $count   = $orm->count('id');
         $maxPage = intval(ceil(floatval($count) / $pageSize));
         $page    = ($maxPage >= 1 && $page > $maxPage) ? $maxPage : $page;
-        $data    = $orm->limit($pageSize, $pageSize * ($page - 1))->orderBy('id', 'desc')->get()->toArray();
+        $data    = $orm->limit($pageSize)->offset($pageSize * ($page - 1))->orderBy('id', 'desc')->get()->toArray();
         return [
             'data'     => $data,
             'total'    => $count,
