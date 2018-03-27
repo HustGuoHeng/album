@@ -48,12 +48,16 @@ class RouteService
             throw new Exception('该路由已经配置');
         }
 
-        return RouteModel::where('id', $routeId)
+        $num = RouteModel::where('id', $routeId)
             ->update([
                 'route'       => $route,
                 'description' => $description,
                 'route_hash'  => $this->genRouteHash($route)
             ]);
+
+        if ($num == 0) {
+            throw new \Exception('未找到需要修改的数据');
+        }
     }
 
     public function delete($routeId)
@@ -62,22 +66,27 @@ class RouteService
         $deletedStatus = 0;
 
         if (!$this->canDelete($routeId)) {
-            throw new Exception('该路由在使用中，不允许删除!');
+            throw new \Exception('该路由在使用中，不允许删除!');
         }
 
-        return RouteModel::where('id', $routeId)
+        $num = RouteModel::where('id', $routeId)
             ->where('status', $existStatus)
             ->update([
                 'status' => $deletedStatus
             ]);
+
+        if ($num == 0) {
+            throw new \Exception('未找到需要修改的数据');
+        }
     }
 
     public function canDelete($routeId)
     {
-        return RouteModel::where('id', $routeId)
+        $info = RouteModel::where('id', $routeId)
             ->where('has_config', 0)
             ->get()
             ->toArray();
+        return empty($info) ? false : true;
     }
 
     public function checkRoute($route, $projectId, $routeId = null)

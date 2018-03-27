@@ -34,23 +34,33 @@ class ProjectService
             throw new \Exception('项目名称已经存在');
         }
 
-        if ($this->add($project)) {
-            return true;
+        if (!$this->add($project)) {
+            throw new \Exception('添加失败');
         }
 
-        return false;
+        return true;
     }
 
     public function update($id, $project)
     {
-        return ProjectModel::where('id', $id)
+        $num = ProjectModel::where('id', $id)
             ->update(['project' => $project]);
+
+        if ($num == 0) {
+            throw new \Exception('未找到修改对象');
+        }
+        return true;
     }
 
     public function delete($id)
     {
-        return ProjectModel::where('id', $id)
+        $num = ProjectModel::where('id', $id)
+            ->where('status', 1)
             ->update(['status' => 0]);
+        if ($num == 0) {
+            throw new \Exception('未找到删除对象');
+        }
+        return true;
     }
 
 

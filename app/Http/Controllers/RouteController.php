@@ -65,7 +65,8 @@ class RouteController extends Controller
 
         $service = new RouteService();
         try {
-            $status = $service->update($routeId, $route, $description, $projectId);
+            $service->update($routeId, $route, $description, $projectId);
+            $status = 1;
         } catch (\Exception $e) {
             $status = 0;
             $msg    = $e->getMessage();
@@ -84,14 +85,15 @@ class RouteController extends Controller
 
         $service = new RouteService();
         try {
-            $status = $service->delete($routeId);
+            $service->delete($routeId);
+            $status = 1;
         } catch (\Exception $e) {
             $status = 0;
             $msg    = $e->getMessage();
         }
 
         $result = [
-            'status' => $status ? 1 : 0,
+            'status' => $status,
             'msg'    => isset($msg) ? $msg : ''
         ];
 
