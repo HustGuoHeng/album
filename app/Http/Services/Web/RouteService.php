@@ -56,6 +56,30 @@ class RouteService
             ]);
     }
 
+    public function delete($routeId)
+    {
+        $existStatus   = 1;
+        $deletedStatus = 0;
+
+        if (!$this->canDelete($routeId)) {
+            throw new Exception('该路由在使用中，不允许删除!');
+        }
+
+        return RouteModel::where('id', $routeId)
+            ->where('status', $existStatus)
+            ->update([
+                'status' => $deletedStatus
+            ]);
+    }
+
+    public function canDelete($routeId)
+    {
+        return RouteModel::where('id', $routeId)
+            ->where('has_config', 0)
+            ->get()
+            ->toArray();
+    }
+
     public function checkRoute($route, $projectId, $routeId = null)
     {
         $hash  = $this->genRouteHash($route);

@@ -80,8 +80,22 @@ class RouteController extends Controller
 
     public function delete(Request $request)
     {
-        $routeId = $request->input('id');
+        $routeId = intval($request->input('id'));
 
+        $service = new RouteService();
+        try {
+            $status = $service->delete($routeId);
+        } catch (\Exception $e) {
+            $status = 0;
+            $msg    = $e->getMessage();
+        }
+
+        $result = [
+            'status' => $status ? 1 : 0,
+            'msg'    => isset($msg) ? $msg : ''
+        ];
+
+        return $this->jsonReturn($result, $request);
     }
 
     protected function jsonReturn($result, $request)
